@@ -7,17 +7,27 @@ include (${QT_USE_FILE})
 
 set (MOC_FILES
   inc/QMainWindowView.h
+  inc/QSpeciesTabView.h
   )
 
 set (INC_FILES
+  inc/DataLoader.h
   inc/IMainWindowPresenter.h
   inc/IMainWindowView.h
+  inc/ISpeciesTabPresenter.h
+  inc/ISpeciesTabView.h
   inc/MainWindowPresenter.h
+  inc/QTableModel.h
+  inc/SpeciesTabPresenter.h
   )
 
 set (SRC_FILES
+  src/DataLoader.cpp
   src/MainWindowPresenter.cpp
   src/QMainWindowView.cpp
+  src/QSpeciesTabView.cpp
+  src/QTableModel.cpp
+  src/SpeciesTabPresenter.cpp
   )
 
 include_directories(

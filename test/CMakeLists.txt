@@ -1,8 +1,10 @@
 set (CMAKE_CXX_STANDARD 11)
 
 set (TEST_FILES
+  DataLoaderTest.cpp
   MainWindowPresenterTest.cpp
   MockMainWindowView.h
+  MockSpeciesTabPresenter.h
   )
 
 # Enable ExternalProject CMake module

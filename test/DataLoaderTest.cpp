@@ -3,18 +3,18 @@
 #include <gtest/gtest.h>
 
 TEST(DataLoaderTest, FileDoesNotExit) {
-  DataLoader loader("wrong_path", "species_");
+  DataLoader loader("species_");
 
-  EXPECT_EQ(loader.dataExists(2000), false);
+  EXPECT_EQ(loader.dataExists("./", 2000), false);
 }
 
 TEST(DataLoaderTest, FileExists) {
   std::ofstream outfile("species_2000.txt");
   outfile.close();
 
-  DataLoader loader("./", "species_");
+  DataLoader loader("species_");
 
-  EXPECT_EQ(loader.dataExists(2000), true);
+  EXPECT_EQ(loader.dataExists("./", 2000), true);
   EXPECT_EQ(std::remove("species_2000.txt"), 0);
 }
 
@@ -24,10 +24,10 @@ TEST(DataLoaderTest, LoadBadHeaderFile) {
   outfile << "some text no number of rows" << std::endl;
   outfile.close();
 
-  DataLoader loader("./", "species_");
+  DataLoader loader("species_");
 
-  EXPECT_EQ(loader.dataExists(2000), true);
-  ASSERT_THROW(loader.loadData(2000), std::runtime_error);
+  EXPECT_EQ(loader.dataExists("./", 2000), true);
+  ASSERT_THROW(loader.loadData("./", 2000), std::runtime_error);
 }
 
 TEST(DataLoaderTest, LoadBadFileEnding) {
@@ -39,10 +39,10 @@ TEST(DataLoaderTest, LoadBadFileEnding) {
   outfile << "2 12 P\n";
   outfile.close();
 
-  DataLoader loader("./", "species_");
+  DataLoader loader("species_");
 
-  EXPECT_EQ(loader.dataExists(2000), true);
-  EXPECT_THROW(loader.loadData(2000), std::runtime_error);
+  EXPECT_EQ(loader.dataExists("./", 2000), true);
+  EXPECT_THROW(loader.loadData("./", 2000), std::runtime_error);
   EXPECT_EQ(std::remove("species_2000.txt"), 0);
 }
 
@@ -55,10 +55,10 @@ TEST(DataLoaderTest, LoadGoodFile) {
   outfile << "2 12 P";
   outfile.close();
 
-  DataLoader loader("./", "species_");
+  DataLoader loader("species_");
 
-  EXPECT_EQ(loader.dataExists(2000), true);
-  auto data = loader.loadData(2000);
+  EXPECT_EQ(loader.dataExists("./", 2000), true);
+  auto data = loader.loadData("./", 2000);
 
   std::vector<std::vector<std::string>> expectedData(
       3, std::vector<std::string>(365, ""));

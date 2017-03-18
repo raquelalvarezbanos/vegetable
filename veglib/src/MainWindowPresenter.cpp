@@ -1,8 +1,12 @@
 #include "MainWindowPresenter.h"
 #include "IMainWindowView.h"
+#include "ISpeciesTabPresenter.h"
 
-MainWindowPresenter::MainWindowPresenter(IMainWindowView *view)
-    : m_view(view) {
+MainWindowPresenter::MainWindowPresenter(IMainWindowView *view,
+                                         ISpeciesTabPresenter *speciesPresenter)
+    : m_view(view), m_speciesPresenter(speciesPresenter) {
+
+    m_speciesPresenter->acceptMainPresenter(this);
 }
 
 void MainWindowPresenter::notify(IMainWindowPresenter::Flag flag) {
@@ -38,3 +42,14 @@ void MainWindowPresenter::showNextYear() {
 }
 
 void MainWindowPresenter::showStatistics() { ; }
+
+
+int MainWindowPresenter::currentYear() const {
+
+    return std::atoi(m_view->currentYear().c_str());
+}
+
+std::string MainWindowPresenter::pathToData() const {
+
+    return "./";
+}

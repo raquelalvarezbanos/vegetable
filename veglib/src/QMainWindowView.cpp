@@ -1,4 +1,5 @@
 #include "QMainWindowView.h"
+#include "QSpeciesTabView.h"
 #include "MainWindowPresenter.h"
 
 #include <string>
@@ -8,6 +9,7 @@
 #include <QLabel>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QTabWidget>
 #include <QSplitter>
 #include <QString>
 #include <QVBoxLayout>
@@ -17,6 +19,11 @@ QMainWindowView::QMainWindowView(QWidget *parent)
 {
   setWindowTitle(tr("VegeTable"));
   resize(600, 300);
+
+  // The tabs
+  QTabWidget *tabWidget = new QTabWidget;
+  QSpeciesTabView *speciesView = new QSpeciesTabView;
+  tabWidget->addTab(speciesView, tr("Species"));
 
   // The year buttons
   QPushButton *previousYearButton = new QPushButton(tr(" < "));
@@ -34,15 +41,20 @@ QMainWindowView::QMainWindowView(QWidget *parent)
   QPushButton *statisticsButton = new QPushButton(tr("Statistics"));
 
   // Horizontal layout
-  QHBoxLayout *horizontalLayout = new QHBoxLayout(this);
+  QHBoxLayout *horizontalLayout = new QHBoxLayout();
   horizontalLayout->addWidget(previousYearButton);
   horizontalLayout->addWidget(m_yearLabel);
   horizontalLayout->addWidget(nextYearButton);
   horizontalLayout->addWidget(splitter);
   horizontalLayout->addWidget(statisticsButton);
 
+  // Vertical layout
+  QVBoxLayout *verticalLayout = new QVBoxLayout(this);
+  verticalLayout->addWidget(tabWidget);
+  verticalLayout->addLayout(horizontalLayout);
+
   // The presenter
-  m_presenter.reset(new MainWindowPresenter(this));
+  m_presenter.reset(new MainWindowPresenter(this, speciesView->presenter()));
 
   // Connections
   connect(previousYearButton, SIGNAL (clicked()),this, SLOT (previousYearClicked()));

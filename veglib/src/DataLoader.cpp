@@ -1,12 +1,12 @@
 #include "DataLoader.h"
 #include <fstream>
 
-DataLoader::DataLoader(const std::string &fullPath, const std::string &prefix)
-    : m_path(fullPath), m_prefix(prefix) {}
+DataLoader::DataLoader(const std::string &prefix)
+    : m_prefix(prefix) {}
 
-bool DataLoader::dataExists(int year) {
+bool DataLoader::dataExists(const std::string &path, int year) {
 
-  std::ifstream file(m_path + m_prefix + std::to_string(year) + ".txt");
+  std::ifstream file(path + m_prefix + std::to_string(year) + ".txt");
   if (file.is_open()) {
     file.close();
     return true;
@@ -16,10 +16,11 @@ bool DataLoader::dataExists(int year) {
     return false;
 }
 
-std::vector<std::vector<std::string>> DataLoader::loadData(int year) {
+std::vector<std::vector<std::string>> DataLoader::loadData(const std::string &path,
+                                                           int year) {
 
   const std::string fileName =
-      m_path + m_prefix + std::to_string(year) + ".txt";
+      path + m_prefix + std::to_string(year) + ".txt";
   std::ifstream file(fileName);
 
   if (file.is_open()) {
