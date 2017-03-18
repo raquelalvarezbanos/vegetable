@@ -39,14 +39,20 @@ QMainWindowView::QMainWindowView(QWidget *parent)
   
   // Statistics
   QPushButton *statisticsButton = new QPushButton(tr("Statistics"));
+  // Settings
+  QPushButton *settingsButton = new QPushButton(tr("Settings"));
+  // Save
+  QPushButton *saveButton = new QPushButton(tr("Save"));
 
   // Horizontal layout
   QHBoxLayout *horizontalLayout = new QHBoxLayout();
   horizontalLayout->addWidget(previousYearButton);
   horizontalLayout->addWidget(m_yearLabel);
   horizontalLayout->addWidget(nextYearButton);
-  horizontalLayout->addWidget(splitter);
   horizontalLayout->addWidget(statisticsButton);
+  horizontalLayout->addWidget(splitter);
+  horizontalLayout->addWidget(settingsButton);
+  horizontalLayout->addWidget(saveButton);
 
   // Vertical layout
   QVBoxLayout *verticalLayout = new QVBoxLayout(this);
@@ -60,6 +66,8 @@ QMainWindowView::QMainWindowView(QWidget *parent)
   connect(previousYearButton, SIGNAL (clicked()),this, SLOT (previousYearClicked()));
   connect(nextYearButton, SIGNAL(clicked()), this, SLOT(nextYearClicked()));
   connect(statisticsButton, SIGNAL(clicked()), this, SLOT(statisticsClicked()));
+  connect(settingsButton, SIGNAL(clicked()), this, SLOT(settingsClicked()));
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(saveClicked()));
 }
 
 void QMainWindowView::previousYearClicked() {
@@ -76,6 +84,10 @@ void QMainWindowView::statisticsClicked() {
 
     m_presenter->notify(IMainWindowPresenter::StatisticsRequested);
 }
+
+void QMainWindowView::settingsClicked() {}
+
+void QMainWindowView::saveClicked() {}
 
 std::string QMainWindowView::currentYear() const {
 

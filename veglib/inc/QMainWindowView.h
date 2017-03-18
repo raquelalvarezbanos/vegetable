@@ -37,6 +37,8 @@ private slots:
   void previousYearClicked();
   void nextYearClicked();
   void statisticsClicked();
+  void settingsClicked();
+  void saveClicked();
 };
 
 #endif
