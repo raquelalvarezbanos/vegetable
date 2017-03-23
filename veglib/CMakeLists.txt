@@ -18,7 +18,6 @@ set (INC_FILES
   inc/ISpeciesTabPresenter.h
   inc/ISpeciesTabView.h
   inc/MainWindowPresenter.h
-  inc/QTableModel.h
   inc/SpeciesTabPresenter.h
   )
 
@@ -28,7 +27,6 @@ set (SRC_FILES
   src/QMainWindowView.cpp
   src/QSettingsView.cpp
   src/QSpeciesTabView.cpp
-  src/QTableModel.cpp
   src/SpeciesTabPresenter.cpp
   )
 

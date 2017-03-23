@@ -6,19 +6,17 @@
 
 class ISpeciesTabView;
 class IMainWindowPresenter;
-class QAbstractTableModel;
 
 class SpeciesTabPresenter : public ISpeciesTabPresenter
 {
 public:
-    SpeciesTabPresenter(ISpeciesTabView *view, QAbstractTableModel *model);
+    SpeciesTabPresenter(ISpeciesTabView *view);
 
     void acceptMainPresenter(IMainWindowPresenter *presenter) override;
 
 private:
     ISpeciesTabView *m_view;
     IMainWindowPresenter *m_presenter;
-    QAbstractTableModel *m_model;
     DataLoader m_loader{"species_"};
 };
 

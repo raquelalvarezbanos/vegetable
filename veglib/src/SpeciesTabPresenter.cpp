@@ -4,9 +4,8 @@
 
 #include <QFile>
 
-SpeciesTabPresenter::SpeciesTabPresenter(ISpeciesTabView *view,
-                                         QAbstractTableModel *model)
-    : m_view(view), m_model(model) {}
+SpeciesTabPresenter::SpeciesTabPresenter(ISpeciesTabView *view)
+    : m_view(view) {}
 
 void SpeciesTabPresenter::acceptMainPresenter(IMainWindowPresenter *presenter) {
 

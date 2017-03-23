@@ -6,10 +6,9 @@
 
 #include <memory>
 
-#include <QAbstractTableModel>
 #include <QWidget>
 
-class QTableView;
+class QTableWidget;
 class ISpeciesTabPresenter;
 
 class QSpeciesTabView : public QWidget, public ISpeciesTabView
@@ -21,9 +20,8 @@ public:
     ISpeciesTabPresenter *presenter() const;
 
 private:
-    QTableView *m_tableView;
+    QTableWidget *m_table;
     std::unique_ptr<ISpeciesTabPresenter> m_presenter;
-    std::shared_ptr<QAbstractTableModel> m_model;
 };
 
 #endif
