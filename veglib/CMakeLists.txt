@@ -7,6 +7,7 @@ include (${QT_USE_FILE})
 
 set (MOC_FILES
   inc/QMainWindowView.h
+  inc/QSettingsView.h
   inc/QSpeciesTabView.h
   )
 
@@ -25,6 +26,7 @@ set (SRC_FILES
   src/DataLoader.cpp
   src/MainWindowPresenter.cpp
   src/QMainWindowView.cpp
+  src/QSettingsView.cpp
   src/QSpeciesTabView.cpp
   src/QTableModel.cpp
   src/SpeciesTabPresenter.cpp
