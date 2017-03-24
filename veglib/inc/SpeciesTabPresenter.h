@@ -14,10 +14,16 @@ public:
 
     void acceptMainPresenter(IMainWindowPresenter *presenter) override;
 
+    void notify(ISpeciesTabPresenter::Flag flag) override;
+
 private:
     ISpeciesTabView *m_view;
     IMainWindowPresenter *m_presenter;
     DataLoader m_loader{"species_"};
+
+private:
+    void addSpecies();
+    void removeSpecies();
 };
 
 #endif // SPECIESTABPRESENTER_H
