@@ -19,6 +19,7 @@ set (INC_FILES
   inc/ISpeciesTabView.h
   inc/MainWindowPresenter.h
   inc/SpeciesTabPresenter.h
+  inc/TableCell.h
   )
 
 set (SRC_FILES
@@ -28,6 +29,7 @@ set (SRC_FILES
   src/QSettingsView.cpp
   src/QSpeciesTabView.cpp
   src/SpeciesTabPresenter.cpp
+  src/TableCell.cpp
   )
 
 include_directories(

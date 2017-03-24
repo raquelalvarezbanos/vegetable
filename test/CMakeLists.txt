@@ -1,8 +1,12 @@
 set (CMAKE_CXX_STANDARD 11)
 
-set (TEST_FILES
+set (TEST_SRC_FILES
   DataLoaderTest.cpp
   MainWindowPresenterTest.cpp
+  TableCellTest.cpp
+  )
+
+set (TEST_INC_FILES
   MockMainWindowView.h
   MockSpeciesTabPresenter.h
   )
@@ -50,7 +54,7 @@ include_directories(
   "${PROJECT_SOURCE_DIR}/veglib/inc")
 
 # vegetable unit tests
-add_executable(vegetable-tests main_test.cpp ${TEST_FILES})
+add_executable(vegetable-tests main_test.cpp ${TEST_SRC_FILES} ${TEST_INC_FILES})
 target_link_libraries (vegetable-tests
   vegetable
   libgtest
