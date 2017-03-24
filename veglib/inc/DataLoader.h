@@ -1,6 +1,8 @@
 #ifndef DATALOADER_H
 #define DATALOADER_H
 
+#include "TableCell.h"
+
 #include <string>
 #include <vector>
 
@@ -10,9 +12,11 @@ public:
 
   // Check if file exists in directory
   bool dataExists(const std::string &path, int year);
-  // Load data from file as a 2d vector
-  std::vector<std::vector<std::string>> loadData(const std::string &path,
-                                                 int year);
+  // Return the number of rows
+  int numberOfRows(const std::string &path, int year);
+  // Load data from file
+  std::vector<TableCell> loadData(const std::string &path, int year,
+                                  int &nrows);
 
 private:
   std::string m_prefix;

@@ -1,8 +1,9 @@
 #include "DataLoader.h"
 #include <fstream>
 
-DataLoader::DataLoader(const std::string &prefix)
-    : m_prefix(prefix) {}
+#include <boost/algorithm/string.hpp>
+
+DataLoader::DataLoader(const std::string &prefix) : m_prefix(prefix) {}
 
 bool DataLoader::dataExists(const std::string &path, int year) {
 
@@ -16,54 +17,60 @@ bool DataLoader::dataExists(const std::string &path, int year) {
     return false;
 }
 
-std::vector<std::vector<std::string>> DataLoader::loadData(const std::string &path,
-                                                           int year) {
+std::vector<TableCell> DataLoader::loadData(const std::string &path, int year,
+                                            int &nrows) {
 
-  const std::string fileName =
-      path + m_prefix + std::to_string(year) + ".txt";
+  const std::string fileName = path + m_prefix + std::to_string(year) + ".txt";
   std::ifstream file(fileName);
+
+  std::vector<TableCell> data;
 
   if (file.is_open()) {
     std::string line;
 
-    // First line is a single number indicating number of rows
-    int nrows;
-    file >> nrows;
+    // Discard first line
+    std::getline(file, line);
+    nrows = std::stoi(line.c_str());
     if (nrows == 0)
-      throw std::runtime_error(
-          "Error reading " + fileName +
-          ". Could not determine number of rows in the table");
+      throw std::runtime_error("Error parsing " + fileName +
+                               ". Invalid format");
 
-    std::vector<std::vector<std::string>> data(
-        nrows, std::vector<std::string>(m_daysPerYear, std::string()));
-
-    // Following lines are expected to be sets of three elements:
-    // row, column, status
+    // Following lines are expected to be sets of:
+    // row, column, status, (background)
 
     while (std::getline(file, line)) {
 
-      int row;
-      int col;
-      std::string status;
-      file >> row >> col >> status;
+      std::vector<std::string> values;
+      boost::algorithm::split(values, line, boost::is_any_of(" "));
 
+      if (values.size() < 3)
+        throw std::runtime_error("Error parsing " + fileName +
+                                 ". File must have at least three columns\n");
+
+      int row = std::atoi(values[0].c_str());
       if (row >= nrows)
         throw std::runtime_error("Error parsing " + fileName +
-                                 ". Invalid format");
+                                 ". More rows than expected");
 
+      int col = std::atoi(values[1].c_str());
       if (col >= m_daysPerYear)
         throw std::runtime_error("Error parsing " + fileName +
-                                 ". Invalid format");
+                                 ". More columns than expected");
 
-      if (status == std::string())
-          throw std::runtime_error("Error parsing " + fileName +
-                                   ". Invalid format");
+      std::string status = values[2];
+      if (status == "")
+        throw std::runtime_error("Error parsing " + fileName +
+                                 ". Status cannot be empty");
 
-      data[row][col] = status;
+      std::string bkg;
+      if (values.size() > 3){
+          bkg = values[3];
+      }
+
+      data.push_back(TableCell(row, col, status, bkg));
     }
     file.close();
+  }
 
-    return data;
-  } else
-    return std::vector<std::vector<std::string>>();
+  return data;
 }
