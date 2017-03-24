@@ -12,6 +12,8 @@ public:
     virtual std::string currentYear() const = 0;
     // Sets current year
     virtual void setCurrentYear(const std::string &year) = 0;
+    // Path to data
+    virtual std::string pathToData() const = 0;
     // Prompt
     virtual void showError(const std::string &prompt,
                            const std::string &title) = 0;

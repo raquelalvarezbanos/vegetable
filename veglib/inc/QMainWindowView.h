@@ -20,6 +20,8 @@ public:
   std::string currentYear() const override;
   // Sets current year
   void setCurrentYear(const std::string &year) override;
+  // Path to data
+  std::string pathToData() const override;
   // Shows an error message
   void showError(const std::string &prompt,
                  const std::string &title);

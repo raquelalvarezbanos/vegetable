@@ -51,5 +51,5 @@ int MainWindowPresenter::currentYear() const {
 
 std::string MainWindowPresenter::pathToData() const {
 
-    return "./";
+    return m_view->pathToData();
 }

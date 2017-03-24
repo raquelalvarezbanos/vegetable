@@ -1,4 +1,5 @@
 #include "QMainWindowView.h"
+#include "QSettingsView.h"
 #include "QSpeciesTabView.h"
 #include "MainWindowPresenter.h"
 
@@ -10,6 +11,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 #include <QTabWidget>
+#include <QSettings>
 #include <QSplitter>
 #include <QString>
 #include <QVBoxLayout>
@@ -85,7 +87,11 @@ void QMainWindowView::statisticsClicked() {
     m_presenter->notify(IMainWindowPresenter::StatisticsRequested);
 }
 
-void QMainWindowView::settingsClicked() {}
+void QMainWindowView::settingsClicked() {
+
+    QSettingsView *settings = new QSettingsView(this);
+    settings->exec();
+}
 
 void QMainWindowView::saveClicked() {}
 
@@ -97,6 +103,12 @@ std::string QMainWindowView::currentYear() const {
 void QMainWindowView::setCurrentYear(const std::string &year) {
 
     m_yearLabel->setText(QString::fromStdString(year));
+}
+
+std::string QMainWindowView::pathToData() const {
+
+    QSettings settings;
+    return settings.value("dataSearchDirectory").toString().toStdString();
 }
 
 void QMainWindowView::showError(const std::string &prompt,
