@@ -37,7 +37,7 @@ void QSettingsView::browseClicked() {
             QFileDialog::getExistingDirectory(this, "Select directory", "./");
 
     QSettings settings;
-    settings.setValue("dataSearchDirectory", dir);
+    settings.setValue("dataSearchDirectory", dir + "/");
 
     m_edit->setText(dir);
 }

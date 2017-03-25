@@ -30,8 +30,10 @@ void MainWindowPresenter::showPreviousYear() {
   int currYear = std::stoi(currYearStr) - 1;
   if (currYear < 0)
       m_view->showError("Only B.C is allowed", "Invalid year");
-  else
+  else{
       m_view->setCurrentYear(std::to_string(currYear));
+      m_speciesPresenter->notify(ISpeciesTabPresenter::CurrentYearChanged);
+  }
 }
 
 void MainWindowPresenter::showNextYear() {
@@ -39,6 +41,7 @@ void MainWindowPresenter::showNextYear() {
   const std::string currYearStr = m_view->currentYear();
   int currYear = std::stoi(currYearStr) + 1;
   m_view->setCurrentYear(std::to_string(currYear));
+  m_speciesPresenter->notify(ISpeciesTabPresenter::CurrentYearChanged);
 }
 
 void MainWindowPresenter::showStatistics() { ; }

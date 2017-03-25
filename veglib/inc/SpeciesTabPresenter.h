@@ -24,6 +24,7 @@ private:
 private:
     void addSpecies();
     void removeSpecies();
+    void currentYearChanged();
 };
 
 #endif // SPECIESTABPRESENTER_H

@@ -11,12 +11,7 @@ void SpeciesTabPresenter::acceptMainPresenter(IMainWindowPresenter *presenter) {
 
   m_presenter = presenter;
 
-  const std::string path = m_presenter->pathToData();
-  const int year = m_presenter->currentYear();
-
-  if (m_loader.dataExists(path, year))
-    ;
-  // QFile file("data/species/" + year + ".txt");
+  currentYearChanged();
 }
 
 void SpeciesTabPresenter::notify(ISpeciesTabPresenter::Flag flag) {
@@ -27,6 +22,9 @@ void SpeciesTabPresenter::notify(ISpeciesTabPresenter::Flag flag) {
     break;
   case (ISpeciesTabPresenter::RemoveSpeciesRequested):
     removeSpecies();
+    break;
+  case (ISpeciesTabPresenter::CurrentYearChanged):
+    currentYearChanged();
     break;
   }
 }
@@ -39,7 +37,26 @@ void SpeciesTabPresenter::addSpecies() {
   m_view->appendRow(name);
 }
 
-void SpeciesTabPresenter::removeSpecies() {
+void SpeciesTabPresenter::removeSpecies() { m_view->removeRows(); }
 
-  m_view->removeRows();
+void SpeciesTabPresenter::currentYearChanged() {
+
+  const std::string path = m_presenter->pathToData();
+  const int year = m_presenter->currentYear();
+
+  if (m_loader.dataExists(path, year)) {
+    int nrows;
+    std::vector<std::string> names;
+    std::vector<TableCell> data;
+    m_loader.loadData(path, year, nrows, names, data);
+
+    m_view->resizeTable(nrows, names);
+
+    for (const auto &cell : data) {
+      m_view->setCell(cell.row(), cell.column(), cell.status());
+    }
+  }
+  else {
+      m_view->clearTable();
+  }
 }

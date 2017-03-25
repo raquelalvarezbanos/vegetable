@@ -8,6 +8,8 @@
 #include <QTableWidget>
 #include <QVBoxLayout>
 
+#include <set>
+
 QSpeciesTabView::QSpeciesTabView(QWidget *parent) : QWidget(parent) {
 
   QVBoxLayout *vlayout = new QVBoxLayout(this);
@@ -108,4 +110,28 @@ void QSpeciesTabView::removeRows() {
 
   for (auto it = sortedRows.rbegin(); it != sortedRows.rend(); ++it)
     m_table->removeRow(*it);
+}
+
+void QSpeciesTabView::clearTable() {
+
+  m_table->clear();
+  m_table->setRowCount(0);
+}
+
+void QSpeciesTabView::resizeTable(
+    int nrows, const std::vector<std::string> &verticalHeaderData) {
+
+  m_table->setRowCount(nrows);
+
+  int i = 0;
+  for (const auto &data : verticalHeaderData) {
+    m_table->setVerticalHeaderItem(
+        i++, new QTableWidgetItem(QString::fromStdString(data)));
+  }
+}
+
+void QSpeciesTabView::setCell(int row, int column, const std::string &value) {
+
+  m_table->setItem(row, column,
+                   new QTableWidgetItem(QString::fromStdString(value)));
 }
