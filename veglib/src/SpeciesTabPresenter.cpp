@@ -4,8 +4,7 @@
 
 #include <QFile>
 
-SpeciesTabPresenter::SpeciesTabPresenter(ISpeciesTabView *view)
-    : m_view(view) {}
+SpeciesTabPresenter::SpeciesTabPresenter() {}
 
 void SpeciesTabPresenter::acceptMainPresenter(IMainWindowPresenter *presenter) {
 
@@ -14,16 +13,27 @@ void SpeciesTabPresenter::acceptMainPresenter(IMainWindowPresenter *presenter) {
   currentYearChanged();
 }
 
-void SpeciesTabPresenter::notify(ISpeciesTabPresenter::Flag flag) {
+void SpeciesTabPresenter::acceptView(ISpeciesTabView *view){
+
+    m_view = view;
+}
+
+void SpeciesTabPresenter::notify(ISpeciesPresenter::Flag flag) {
 
   switch (flag) {
-  case (ISpeciesTabPresenter::AddSpeciesRequested):
+  case (ISpeciesPresenter::AddSpeciesRequested):
     addSpecies();
     break;
-  case (ISpeciesTabPresenter::RemoveSpeciesRequested):
+  case (ISpeciesPresenter::RemoveSpeciesRequested):
     removeSpecies();
     break;
-  case (ISpeciesTabPresenter::CurrentYearChanged):
+  }
+}
+
+void SpeciesTabPresenter::notify(ITabPresenter::Flag flag) {
+
+  switch (flag) {
+  case (ITabPresenter::CurrentYearChanged):
     currentYearChanged();
     break;
   }

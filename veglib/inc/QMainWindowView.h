@@ -3,6 +3,7 @@
 
 #include "IMainWindowView.h"
 #include "IMainWindowPresenter.h"
+#include "SpeciesTabPresenter.h"
 
 #include <memory>
 #include <QWidget>
@@ -34,6 +35,8 @@ private:
   int m_year;
   // The presenter
   std::unique_ptr<IMainWindowPresenter> m_presenter;
+  // The species tab presenter
+  std::unique_ptr<SpeciesTabPresenter> m_speciesPresenter;
 
 private slots:
   void previousYearClicked();

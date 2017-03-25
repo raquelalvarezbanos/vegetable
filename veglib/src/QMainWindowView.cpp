@@ -22,9 +22,12 @@ QMainWindowView::QMainWindowView(QWidget *parent)
   setWindowTitle(tr("VegeTable"));
   resize(600, 300);
 
+  // The tab presenters
+  m_speciesPresenter.reset(new SpeciesTabPresenter());
+
   // The tabs
   QTabWidget *tabWidget = new QTabWidget;
-  QSpeciesTabView *speciesView = new QSpeciesTabView;
+  QSpeciesTabView *speciesView = new QSpeciesTabView(m_speciesPresenter.get());
   tabWidget->addTab(speciesView, tr("Species"));
 
   // The year buttons
@@ -61,8 +64,8 @@ QMainWindowView::QMainWindowView(QWidget *parent)
   verticalLayout->addWidget(tabWidget);
   verticalLayout->addLayout(horizontalLayout);
 
-  // The presenter
-  m_presenter.reset(new MainWindowPresenter(this, speciesView->presenter()));
+  // The main presenter
+  m_presenter.reset(new MainWindowPresenter(this, m_speciesPresenter.get()));
 
   // Connections
   connect(previousYearButton, SIGNAL (clicked()),this, SLOT (previousYearClicked()));

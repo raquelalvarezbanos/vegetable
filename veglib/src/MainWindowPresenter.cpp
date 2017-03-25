@@ -1,12 +1,12 @@
 #include "MainWindowPresenter.h"
 #include "IMainWindowView.h"
-#include "ISpeciesTabPresenter.h"
+#include "ITabPresenter.h"
 
 MainWindowPresenter::MainWindowPresenter(IMainWindowView *view,
-                                         ISpeciesTabPresenter *speciesPresenter)
-    : m_view(view), m_speciesPresenter(speciesPresenter) {
+                                         ITabPresenter *speciesPresenter)
+    : m_view(view), m_species(speciesPresenter) {
 
-    m_speciesPresenter->acceptMainPresenter(this);
+    m_species->acceptMainPresenter(this);
 }
 
 void MainWindowPresenter::notify(IMainWindowPresenter::Flag flag) {
@@ -32,7 +32,7 @@ void MainWindowPresenter::showPreviousYear() {
       m_view->showError("Only B.C is allowed", "Invalid year");
   else{
       m_view->setCurrentYear(std::to_string(currYear));
-      m_speciesPresenter->notify(ISpeciesTabPresenter::CurrentYearChanged);
+      m_species->notify(ITabPresenter::CurrentYearChanged);
   }
 }
 
@@ -41,7 +41,7 @@ void MainWindowPresenter::showNextYear() {
   const std::string currYearStr = m_view->currentYear();
   int currYear = std::stoi(currYearStr) + 1;
   m_view->setCurrentYear(std::to_string(currYear));
-  m_speciesPresenter->notify(ISpeciesTabPresenter::CurrentYearChanged);
+  m_species->notify(ITabPresenter::CurrentYearChanged);
 }
 
 void MainWindowPresenter::showStatistics() { ; }

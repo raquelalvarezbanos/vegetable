@@ -1,6 +1,6 @@
 #include "MainWindowPresenter.h"
 #include "MockMainWindowView.h"
-#include "MockSpeciesTabPresenter.h"
+#include "MockTabPresenter.h"
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 
@@ -10,7 +10,7 @@ using ::testing::_;
 
 TEST(MainWindowPresenterTest, UninterestingNextYear) {
     MockMainWindowView view;
-    MockSpeciesTabPresenter tabPresenter;
+    MockTabPresenter tabPresenter;
     MainWindowPresenter presenter(&view, &tabPresenter);
 
     EXPECT_CALL(view, currentYear()).Times(1).WillOnce(Return("2001"));
@@ -22,7 +22,7 @@ TEST(MainWindowPresenterTest, UninterestingNextYear) {
 
 TEST(MainWindowPresenterTest, UninterestingPreviousYear) {
     MockMainWindowView view;
-    MockSpeciesTabPresenter tabPresenter;
+    MockTabPresenter tabPresenter;
     MainWindowPresenter presenter(&view, &tabPresenter);
 
     EXPECT_CALL(view, currentYear()).Times(1).WillOnce(Return("2001"));
@@ -34,7 +34,7 @@ TEST(MainWindowPresenterTest, UninterestingPreviousYear) {
 
 TEST(MainWindowPresenterTest, YearZero) {
     MockMainWindowView view;
-    MockSpeciesTabPresenter tabPresenter;
+    MockTabPresenter tabPresenter;
     MainWindowPresenter presenter(&view, &tabPresenter);
 
     EXPECT_CALL(view, currentYear()).Times(1).WillOnce(Return("0"));

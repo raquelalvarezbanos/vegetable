@@ -1,7 +1,7 @@
 #ifndef QSPECIESTABVIEW_H
 #define QSPECIESTABVIEW_H
 
-#include "ISpeciesTabPresenter.h"
+#include "ISpeciesPresenter.h"
 #include "ISpeciesTabView.h"
 
 #include <memory>
@@ -9,18 +9,17 @@
 #include <QWidget>
 
 class QTableWidget;
-class ISpeciesTabPresenter;
+class ISpeciesPresenter;
 
 class QSpeciesTabView : public QWidget, public ISpeciesTabView {
   Q_OBJECT
 
 public:
-  QSpeciesTabView(QWidget *parent = 0);
-  ISpeciesTabPresenter *presenter() const;
+  QSpeciesTabView(ISpeciesPresenter *presenter, QWidget *parent = 0);
 
 private:
   QTableWidget *m_table;
-  std::unique_ptr<ISpeciesTabPresenter> m_presenter;
+  ISpeciesPresenter *m_presenter;
 
 private:
   std::string askUserNewRow(const std::string &title, const std::string &prompt,

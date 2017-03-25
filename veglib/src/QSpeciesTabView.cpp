@@ -10,7 +10,8 @@
 
 #include <set>
 
-QSpeciesTabView::QSpeciesTabView(QWidget *parent) : QWidget(parent) {
+QSpeciesTabView::QSpeciesTabView(ISpeciesPresenter *presenter, QWidget *parent)
+    : m_presenter(presenter), QWidget(parent) {
 
   QVBoxLayout *vlayout = new QVBoxLayout(this);
   QHBoxLayout *hlayout = new QHBoxLayout;
@@ -55,26 +56,21 @@ QSpeciesTabView::QSpeciesTabView(QWidget *parent) : QWidget(parent) {
   vlayout->addLayout(hlayout);
   vlayout->addWidget(m_table);
 
-  m_presenter.reset(new SpeciesTabPresenter(this));
+  m_presenter->acceptView(this);
 
   // Connections
   connect(addSpecies, SIGNAL(clicked()), this, SLOT(addSpeciesClicked()));
   connect(removeSpecies, SIGNAL(clicked()), this, SLOT(removeSpeciesClicked()));
 }
 
-ISpeciesTabPresenter *QSpeciesTabView::presenter() const {
-
-  return m_presenter.get();
-}
-
 void QSpeciesTabView::addSpeciesClicked() {
 
-  m_presenter->notify(ISpeciesTabPresenter::AddSpeciesRequested);
+  m_presenter->notify(ISpeciesPresenter::AddSpeciesRequested);
 }
 
 void QSpeciesTabView::removeSpeciesClicked() {
 
-  m_presenter->notify(ISpeciesTabPresenter::RemoveSpeciesRequested);
+  m_presenter->notify(ISpeciesPresenter::RemoveSpeciesRequested);
 }
 
 std::string QSpeciesTabView::askUserNewRow(const std::string &title,

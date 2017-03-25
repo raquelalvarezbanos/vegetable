@@ -1,20 +1,23 @@
 #ifndef SPECIESTABPRESENTER_H
 #define SPECIESTABPRESENTER_H
 
-#include "ISpeciesTabPresenter.h"
+#include "ITabPresenter.h"
+#include "ISpeciesPresenter.h"
 #include "DataLoader.h"
 
 class ISpeciesTabView;
 class IMainWindowPresenter;
 
-class SpeciesTabPresenter : public ISpeciesTabPresenter
+class SpeciesTabPresenter : public ISpeciesPresenter, public ITabPresenter
 {
 public:
-    SpeciesTabPresenter(ISpeciesTabView *view);
+    SpeciesTabPresenter();
 
     void acceptMainPresenter(IMainWindowPresenter *presenter) override;
+    void acceptView(ISpeciesTabView *view) override;
 
-    void notify(ISpeciesTabPresenter::Flag flag) override;
+    void notify(ISpeciesPresenter::Flag flag) override;
+    void notify(ITabPresenter::Flag flag) override;
 
 private:
     ISpeciesTabView *m_view;

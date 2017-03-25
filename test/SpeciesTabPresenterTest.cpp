@@ -14,7 +14,9 @@ TEST(SpeciesTabPresenterTest, AcceptMainPresenter) {
 
   MockSpeciesTabView view;
   MockMainWindowPresenter mainPresenter;
-  SpeciesTabPresenter presenter(&view);
+  SpeciesTabPresenter presenter;
+
+  presenter.acceptView(&view);
 
   EXPECT_CALL(mainPresenter, pathToData()).Times(1).WillOnce(Return("./"));
   EXPECT_CALL(mainPresenter, currentYear()).Times(1).WillOnce(Return(2017));
@@ -39,7 +41,9 @@ TEST(SpeciesTabPresenterTest, AcceptMainPresenterExistingData) {
 
   MockSpeciesTabView view;
   MockMainWindowPresenter mainPresenter;
-  SpeciesTabPresenter presenter(&view);
+  SpeciesTabPresenter presenter;
+
+  presenter.acceptView(&view);
 
   EXPECT_CALL(mainPresenter, pathToData()).Times(1).WillOnce(Return("./"));
   EXPECT_CALL(mainPresenter, currentYear()).Times(1).WillOnce(Return(2017));
@@ -60,25 +64,26 @@ TEST(SpeciesTabPresenterTest, AcceptMainPresenterExistingData) {
 
 TEST(SpeciesTabPresenterTest, AddSpecies) {
   MockSpeciesTabView view;
-  SpeciesTabPresenter presenter(&view);
+  SpeciesTabPresenter presenter;
+  presenter.acceptView(&view);
 
   EXPECT_CALL(
       view, askUserNewRow("New Species", "Name of new species", "New species"))
       .Times(1)
       .WillOnce(Return("lettuce"));
   EXPECT_CALL(view, appendRow("lettuce")).Times(1);
-  presenter.notify(ISpeciesTabPresenter::AddSpeciesRequested);
+  presenter.notify(ISpeciesPresenter::AddSpeciesRequested);
 
   Mock::VerifyAndClearExpectations(&view);
 }
 
 TEST(SpeciesTabPresenterTest, RemoveSpecies) {
   MockSpeciesTabView view;
-  SpeciesTabPresenter presenter(&view);
-
+  SpeciesTabPresenter presenter;
+  presenter.acceptView(&view);
 
   EXPECT_CALL(view, removeRows()).Times(1);
-  presenter.notify(ISpeciesTabPresenter::RemoveSpeciesRequested);
+  presenter.notify(ISpeciesPresenter::RemoveSpeciesRequested);
 
   Mock::VerifyAndClearExpectations(&view);
 }

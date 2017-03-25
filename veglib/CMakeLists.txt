@@ -15,7 +15,8 @@ set (INC_FILES
   inc/DataLoader.h
   inc/IMainWindowPresenter.h
   inc/IMainWindowView.h
-  inc/ISpeciesTabPresenter.h
+  inc/ISpeciesPresenter.h
+  inc/ITabPresenter.h
   inc/ISpeciesTabView.h
   inc/MainWindowPresenter.h
   inc/SpeciesTabPresenter.h

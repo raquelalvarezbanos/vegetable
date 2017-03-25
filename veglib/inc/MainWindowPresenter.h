@@ -4,13 +4,13 @@
 #include "IMainWindowPresenter.h"
 
 class IMainWindowView;
-class ISpeciesTabPresenter;
+class ITabPresenter;
 
 class MainWindowPresenter: public IMainWindowPresenter {
 
 public:
   MainWindowPresenter(IMainWindowView *view,
-                      ISpeciesTabPresenter *speciesPresenter);
+                      ITabPresenter *speciesPresenter);
 
   // To be used by the view
   void notify(IMainWindowPresenter::Flag flag) override;
@@ -24,7 +24,7 @@ private:
   void showStatistics();
 
   IMainWindowView *m_view;
-  ISpeciesTabPresenter *m_speciesPresenter;
+  ITabPresenter *m_species;
 };
 
 #endif

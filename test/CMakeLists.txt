@@ -10,7 +10,8 @@ set (TEST_SRC_FILES
 set (TEST_INC_FILES
   MockMainWindowPresenter.h
   MockMainWindowView.h
-  MockSpeciesTabPresenter.h
+  MockSpeciesPresenter.h
+  MockTabPresenter.h
   MockSpeciesTabView.h
   )
 
