@@ -24,7 +24,7 @@ TEST(DataLoaderTest, LoadGoodFile) {
   outfile << "3\n";
   outfile << "tomatoes\n";
   outfile << "cucumber\n";
-  outfile << "lettuce";
+  outfile << "lettuce\n";
   outfile << "0 10 P\n";
   outfile << "1 11 P\n";
   outfile << "2 12 P\n";

@@ -3,12 +3,15 @@ set (CMAKE_CXX_STANDARD 11)
 set (TEST_SRC_FILES
   DataLoaderTest.cpp
   MainWindowPresenterTest.cpp
+  SpeciesTabPresenterTest.cpp
   TableCellTest.cpp
   )
 
 set (TEST_INC_FILES
+  MockMainWindowPresenter.h
   MockMainWindowView.h
   MockSpeciesTabPresenter.h
+  MockSpeciesTabView.h
   )
 
 # Enable ExternalProject CMake module
