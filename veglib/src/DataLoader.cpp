@@ -13,17 +13,17 @@ bool DataLoader::dataExists(const std::string &path, int year) {
     return true;
   }
 
-  else
+  else {
     return false;
+  }
 }
 
-std::vector<TableCell> DataLoader::loadData(const std::string &path, int year,
-                                            int &nrows) {
+void DataLoader::loadData(const std::string &path, int year, int &nrows,
+                          std::vector<std::string> &speciesNames,
+                          std::vector<TableCell> &nonEmptyCells) {
 
   const std::string fileName = path + m_prefix + std::to_string(year) + ".txt";
   std::ifstream file(fileName);
-
-  std::vector<TableCell> data;
 
   if (file.is_open()) {
     std::string line;
@@ -34,6 +34,12 @@ std::vector<TableCell> DataLoader::loadData(const std::string &path, int year,
     if (nrows == 0)
       throw std::runtime_error("Error parsing " + fileName +
                                ". Invalid format");
+
+    speciesNames.reserve(nrows);
+    for (int i=0; i<nrows; i++){
+        std::getline(file, line);
+        speciesNames.push_back(line);
+    }
 
     // Following lines are expected to be sets of:
     // row, column, status, (background)
@@ -61,16 +67,8 @@ std::vector<TableCell> DataLoader::loadData(const std::string &path, int year,
       if (status == "")
         throw std::runtime_error("Error parsing " + fileName +
                                  ". Status cannot be empty");
-
-      std::string bkg;
-      if (values.size() > 3){
-          bkg = values[3];
-      }
-
-      data.push_back(TableCell(row, col, status, bkg));
+      nonEmptyCells.push_back(TableCell(row, col, status));
     }
     file.close();
   }
-
-  return data;
 }

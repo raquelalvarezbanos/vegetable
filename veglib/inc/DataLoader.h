@@ -3,8 +3,8 @@
 
 #include "TableCell.h"
 
-#include <string>
 #include <vector>
+#include <string>
 
 class DataLoader {
 public:
@@ -12,11 +12,12 @@ public:
 
   // Check if file exists in directory
   bool dataExists(const std::string &path, int year);
-  // Return the number of rows
-  int numberOfRows(const std::string &path, int year);
   // Load data from file
-  std::vector<TableCell> loadData(const std::string &path, int year,
-                                  int &nrows);
+  void loadData(const std::string &path,
+                int year,
+                int &nrows,
+                std::vector<std::string> &speciesNames,
+                std::vector<TableCell> &nonEmptyCells);
 
 private:
   std::string m_prefix;
