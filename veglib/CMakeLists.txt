@@ -21,6 +21,7 @@ set (INC_FILES
   inc/MainWindowPresenter.h
   inc/SpeciesTabPresenter.h
   inc/TableCell.h
+  inc/Year.h
   )
 
 set (SRC_FILES
@@ -31,6 +32,7 @@ set (SRC_FILES
   src/QSpeciesTabView.cpp
   src/SpeciesTabPresenter.cpp
   src/TableCell.cpp
+  src/Year.cpp
   )
 
 include_directories(

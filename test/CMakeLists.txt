@@ -5,6 +5,7 @@ set (TEST_SRC_FILES
   MainWindowPresenterTest.cpp
   SpeciesTabPresenterTest.cpp
   TableCellTest.cpp
+  YearTest.cpp
   )
 
 set (TEST_INC_FILES
