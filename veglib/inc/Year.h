@@ -1,7 +1,7 @@
 #ifndef YEAR_H
 #define YEAR_H
 
-#include <map>
+#include <vector>
 
 class Year {
 public:
@@ -13,9 +13,7 @@ public:
 
 private:
   int m_days{365};
-  std::map<int, int> m_daysInMonth{{1, 31}, {2, 28},  {3, 31},  {4, 30},
-                                   {5, 31}, {6, 30},  {7, 31},  {8, 31},
-                                   {9, 30}, {10, 31}, {11, 30}, {12, 31}};
+  std::vector<int> m_daysInMonth{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 };
 
 #endif // YEAR_H

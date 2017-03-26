@@ -7,6 +7,24 @@ TEST(YearTest, DaysInYear) {
   EXPECT_EQ(year.totalDays(), 365);
 }
 
+TEST(YearTest, BadMonthNumber) {
+  Year year;
+
+  EXPECT_THROW(year.daysInMonth(0), std::invalid_argument);
+  EXPECT_THROW(year.daysInMonth(13), std::invalid_argument);
+  EXPECT_THROW(year.dayNumber(1, 0), std::invalid_argument);
+  EXPECT_THROW(year.dayNumber(1, 13), std::invalid_argument);
+}
+
+TEST(YearTest, BadDayNumber) {
+  Year year;
+
+  EXPECT_THROW(year.dayNumber(32, 1), std::invalid_argument);
+  EXPECT_THROW(year.dayNumber(0, 1), std::invalid_argument);
+  EXPECT_THROW(year.dayNumber(29, 2), std::invalid_argument);
+  EXPECT_THROW(year.dayNumber(31, 4), std::invalid_argument);
+}
+
 TEST(YearTest, DaysInMonth) {
   Year year;
 
@@ -30,4 +48,5 @@ TEST(YearTest, DayNumber) {
   EXPECT_EQ(year.dayNumber(1, 2), 32);
   EXPECT_EQ(year.dayNumber(6, 3), 65);
   EXPECT_EQ(year.dayNumber(6, 5), 126);
+  EXPECT_EQ(year.dayNumber(19, 11), 323);
 }
