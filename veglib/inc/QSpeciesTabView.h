@@ -35,6 +35,9 @@ private:
 
   void setCell(int row, int col, const std::string &value) override;
 
+  bool varietyExists(const std::string &name, int &startDay, int &startMonth,
+                     int &endDay, int &endMonth) override;
+
 private slots:
   void addSpeciesClicked();
   void removeSpeciesClicked();

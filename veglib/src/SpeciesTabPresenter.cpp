@@ -1,8 +1,7 @@
 #include "SpeciesTabPresenter.h"
 #include "IMainWindowPresenter.h"
 #include "ISpeciesTabView.h"
-
-#include <QFile>
+#include "Year.h"
 
 SpeciesTabPresenter::SpeciesTabPresenter() {}
 
@@ -13,10 +12,7 @@ void SpeciesTabPresenter::acceptMainPresenter(IMainWindowPresenter *presenter) {
   currentYearChanged();
 }
 
-void SpeciesTabPresenter::acceptView(ISpeciesTabView *view){
-
-    m_view = view;
-}
+void SpeciesTabPresenter::acceptView(ISpeciesTabView *view) { m_view = view; }
 
 void SpeciesTabPresenter::notify(ISpeciesPresenter::Flag flag) {
 
@@ -42,9 +38,27 @@ void SpeciesTabPresenter::notify(ITabPresenter::Flag flag) {
 void SpeciesTabPresenter::addSpecies() {
 
   const std::string name = m_view->askUserNewRow(
-      "New Species", "Name of new species", "New species");
+      "New Species",
+      "Enter a name to label the new species. Example: 'lettuce 1'",
+      "New species");
 
   m_view->appendRow(name);
+
+  const std::string variety = m_view->askUserNewRow(
+      "New species", "Enter the species variety. Example 'romain lettuce'", "");
+
+  int startDay, endDay, startMonth, endMonth;
+  if (m_view->varietyExists(variety, startDay, startMonth, endDay, endMonth)) {
+      Year year;
+      int startCell = year.dayNumber(startDay, startMonth);
+      int endCell = year.dayNumber(endDay, endMonth);
+      for (int i=0; i<endCell+1; i++){
+
+      }
+  }
+  else {
+    ;
+  }
 }
 
 void SpeciesTabPresenter::removeSpecies() { m_view->removeRows(); }
@@ -65,8 +79,7 @@ void SpeciesTabPresenter::currentYearChanged() {
     for (const auto &cell : data) {
       m_view->setCell(cell.row(), cell.column(), cell.status());
     }
-  }
-  else {
-      m_view->clearTable();
+  } else {
+    m_view->clearTable();
   }
 }

@@ -24,6 +24,9 @@ public:
               const std::vector<std::string> &verticalHeaderData) = 0;
 
   virtual void setCell(int row, int col, const std::string &value) = 0;
+
+  virtual bool varietyExists(const std::string &name, int &startDay,
+                             int &startMonth, int &endDay, int &endMonth) = 0;
 };
 
 #endif // ISPECIESTABVIEW_H

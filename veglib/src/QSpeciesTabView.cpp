@@ -4,6 +4,7 @@
 #include <QHeaderView>
 #include <QInputDialog>
 #include <QPushButton>
+#include <QSettings>
 #include <QSplitter>
 #include <QTableWidget>
 #include <QVBoxLayout>
@@ -130,4 +131,26 @@ void QSpeciesTabView::setCell(int row, int column, const std::string &value) {
 
   m_table->setItem(row, column,
                    new QTableWidgetItem(QString::fromStdString(value)));
+}
+
+bool QSpeciesTabView::varietyExists(const std::string &name, int &startDay,
+                                    int &startMonth, int &endDay,
+                                    int &endMonth) {
+
+  QSettings settings;
+  auto startDayStr = QString::fromStdString(name + "SowingStartDay");
+  auto startMonthStr = QString::fromStdString(name + "SowingStartMonth");
+  auto endDayStr = QString::fromStdString(name + "SowingEndDay");
+  auto endMonthStr = QString::fromStdString(name + "SowingEndMonth");
+
+  bool okStartDay;
+  startDay = settings.value(startDayStr).toInt(&okStartDay);
+  bool okStartMonth;
+  startDay = settings.value(startMonthStr).toInt(&okStartMonth);
+  bool okEndDay;
+  startDay = settings.value(endDayStr).toInt(&okEndDay);
+  bool okEndMonth;
+  startDay = settings.value(endMonthStr).toInt(&okEndMonth);
+
+  return (okStartDay && okStartMonth && okEndDay && okEndMonth);
 }
