@@ -15,6 +15,8 @@ public:
 
   virtual void appendRow(const std::string &rowName) = 0;
 
+  virtual int rowCount() const = 0;
+
   virtual void removeRows() = 0;
 
   virtual void clearTable() = 0;
@@ -24,6 +26,8 @@ public:
               const std::vector<std::string> &verticalHeaderData) = 0;
 
   virtual void setCell(int row, int col, const std::string &value) = 0;
+
+  virtual void setCellBackground(int row, int column, const std::string &value) = 0;
 
   virtual bool varietyExists(const std::string &name, int &startDay,
                              int &startMonth, int &endDay, int &endMonth) = 0;

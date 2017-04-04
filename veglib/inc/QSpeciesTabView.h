@@ -26,6 +26,8 @@ private:
                             const std::string &defaultValue) override;
   void appendRow(const std::string &rowName) override;
 
+  int rowCount() const override;
+
   void removeRows() override;
 
   void clearTable() override;
@@ -34,6 +36,8 @@ private:
                    const std::vector<std::string> &verticalHeaderData) override;
 
   void setCell(int row, int col, const std::string &value) override;
+
+  void setCellBackground(int row, int column, const std::string &value) override;
 
   bool varietyExists(const std::string &name, int &startDay, int &startMonth,
                      int &endDay, int &endMonth) override;

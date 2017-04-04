@@ -95,6 +95,11 @@ void QSpeciesTabView::appendRow(const std::string &rowName) {
       lastRow, new QTableWidgetItem(QString::fromStdString(rowName)));
 }
 
+int QSpeciesTabView::rowCount() const {
+
+    return m_table->rowCount();
+}
+
 void QSpeciesTabView::removeRows() {
 
   auto rows = m_table->selectionModel()->selectedRows();
@@ -133,15 +138,22 @@ void QSpeciesTabView::setCell(int row, int column, const std::string &value) {
                    new QTableWidgetItem(QString::fromStdString(value)));
 }
 
+void QSpeciesTabView::setCellBackground(int row, int column, const std::string &value) {
+
+    if (value == "gray")
+        m_table->item(row, column)->setBackground(Qt::gray);
+}
+
 bool QSpeciesTabView::varietyExists(const std::string &name, int &startDay,
                                     int &startMonth, int &endDay,
                                     int &endMonth) {
 
   QSettings settings;
-  auto startDayStr = QString::fromStdString(name + "SowingStartDay");
-  auto startMonthStr = QString::fromStdString(name + "SowingStartMonth");
-  auto endDayStr = QString::fromStdString(name + "SowingEndDay");
-  auto endMonthStr = QString::fromStdString(name + "SowingEndMonth");
+  QString trimmedName = QString::fromStdString(name).replace(" ", "");
+  auto startDayStr = trimmedName + "SowingStartDay";
+  auto startMonthStr = trimmedName + "SowingStartMonth";
+  auto endDayStr = trimmedName + "SowingEndDay";
+  auto endMonthStr = trimmedName + "SowingEndMonth";
 
   bool okStartDay;
   startDay = settings.value(startDayStr).toInt(&okStartDay);

@@ -13,6 +13,9 @@ public:
   MOCK_METHOD0(clearTable, void());
   MOCK_METHOD2(resizeTable, void(int, const std::vector<std::string> &));
   MOCK_METHOD3(setCell, void(int, int, const std::string &));
+  MOCK_METHOD3(setCellBackground, void(int, int, const std::string &));
+
+  MOCK_CONST_METHOD0(rowCount, int());
 
   bool varietyExists(const std::string &name, int &startDay, int &startMonth,
                      int &endDay, int &endMonth) override {
